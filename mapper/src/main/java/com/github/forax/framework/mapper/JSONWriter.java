@@ -22,9 +22,17 @@ public final class JSONWriter {
       return Arrays.stream(properties)
               .filter(property -> !property.getName().equals("class"))
               .<Generator>map(property -> {
-                var key = "\"" + property.getName() + "\": ";
                 var getter = property.getReadMethod();
-                return (writer, bean) -> key + writer.toJSON(extractValue(property, bean));
+                var annotation = getter.getAnnotation(JSONProperty.class);
+                String keyName;
+                if(annotation != null){
+                  keyName = annotation.value();
+                }
+                else{
+                  keyName = property.getName();
+                }
+                var key = "\"" + keyName + "\": ";
+                return (writer, bean) -> key + writer.toJSON(Utils.invokeMethod(bean, getter));
               })
               .toList();
     }
