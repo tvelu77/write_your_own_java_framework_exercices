@@ -1,5 +1,6 @@
 package com.github.forax.framework.mapper;
 
+import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,12 +15,38 @@ public final class JSONWriter {
     String generate(JSONWriter writer, Object bean);
   }
 
+  private static List<PropertyDescriptor> beanProperties(Class<?> type) {
+    var beanInfo = Utils.beanInfo(type);
+    var properties = beanInfo.getPropertyDescriptors();
+    return Arrays.stream(properties)
+            .filter(property -> !property.getName().equals("class"))
+            .toList();
+  }
+
+  private static List<PropertyDescriptor> recordProperties(Class<?> type) {
+    var recordInfo = type.getRecordComponents();
+    return Arrays.stream(recordInfo)
+            .map(info -> {
+              try {
+                return new PropertyDescriptor(info.getName(), info.getAccessor(), null);
+              } catch (IntrospectionException e) {
+                throw new AssertionError(e);
+              }
+            })
+            .toList();
+  }
+
   private static final ClassValue<List<Generator>> PROPERTIES_CLASS_VALUE = new ClassValue<List<Generator>>() {
     @Override
     protected List<Generator> computeValue(Class<?> type) {
-      var beanInfo = Utils.beanInfo(type);
-      var properties = beanInfo.getPropertyDescriptors();
-      return Arrays.stream(properties)
+      List<PropertyDescriptor> properties;
+      if(type.isRecord()){
+        properties = recordProperties(type);
+      }
+      else{
+        properties = beanProperties(type);
+      }
+      return properties.stream()
               .filter(property -> !property.getName().equals("class"))
               .<Generator>map(property -> {
                 var getter = property.getReadMethod();
