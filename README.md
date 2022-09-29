@@ -13,6 +13,4 @@ The number of &#9734; indicates the implementation complexity (&#9734; is easier
 Corrections of the exercices are available at
 [github.com/forax/write_your_own_java_framework](https://github.com/forax/write_your_own_java_framework).
 
-Modified by Thomas VELU
-
-Exercice 2 : git add <file> => git commit -m <"string"> => git push
+Forked by Thomas VELU

@@ -139,7 +139,7 @@ public class JSONWriterTest {
   }
 
 
-/*  @Nested
+ @Nested
   public class Q5 {
     @Test @Tag("Q5")
     public void toJSONWithConfigure() {
@@ -252,5 +252,4 @@ public class JSONWriterTest {
     }
 
   }  // end of Q7
- */
 }
