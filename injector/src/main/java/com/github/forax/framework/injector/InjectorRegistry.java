@@ -2,6 +2,7 @@ package com.github.forax.framework.injector;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public final class InjectorRegistry {
     private final HashMap<Class<?>, Object> map;
@@ -13,7 +14,10 @@ public final class InjectorRegistry {
     public <T> void registerInstance(Class<T> cl, T object) {
         Objects.requireNonNull(cl);
         Objects.requireNonNull(object);
-        map.putIfAbsent(cl, object);
+        var result = map.putIfAbsent(cl, object);
+        if(result != null){
+            throw new IllegalStateException("an instance for " + cl.getName() + " is already defined");
+        }
     }
 
     public <T> T lookupInstance(Class<T> cl) {
@@ -23,5 +27,9 @@ public final class InjectorRegistry {
             throw new IllegalStateException(cl + " is not found");
         }
         return result;
+    }
+
+    public <T> void registerProvider(Class<T> cl, Supplier<T> supplier){
+
     }
 }
