@@ -22,6 +22,10 @@ public final class InjectorRegistry {
 
     public <T> T lookupInstance(Class<T> cl) {
         Objects.requireNonNull(cl);
+        var test = map.get(cl);
+        if(test == null){
+            throw new IllegalStateException("cannot get cl");
+        }
         var result = cl.cast(map.get(cl).get());
         if (result == null) {
             throw new IllegalStateException(cl + " is not found");
@@ -51,8 +55,19 @@ public final class InjectorRegistry {
                 .toList();
     }
 
-    public <T> void registerProviderClass(Class<T> cl, Class<T> providerCl){
+    public <T> void registerProviderClass(Class<T> cl, Class<? extends T> providerCl){
         Objects.requireNonNull(cl);
         Objects.requireNonNull(providerCl);
+        var constructor = Utils.defaultConstructor(providerCl);
+        var properties = findInjectableProperties(providerCl);
+        registerProvider(cl, () -> {
+            var instance = Utils.newInstance(constructor);
+            for(var property : properties){
+                var setter = property.getWriteMethod();
+                var value = lookupInstance(setter.getParameterTypes()[0]);
+                Utils.invokeMethod(instance, setter, value);
+            }
+            return instance;
+        });
     }
 }
