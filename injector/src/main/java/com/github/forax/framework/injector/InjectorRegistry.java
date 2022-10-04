@@ -1,6 +1,7 @@
 package com.github.forax.framework.injector;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -54,20 +55,32 @@ public final class InjectorRegistry {
                 })
                 .toList();
     }
-
-    public <T> void registerProviderClass(Class<T> cl, Class<? extends T> providerCl){
+    public <T> void registerProviderClass(Class<T> cl, Class<? extends T> providerCl) {
         Objects.requireNonNull(cl);
         Objects.requireNonNull(providerCl);
-        var constructor = Utils.defaultConstructor(providerCl);
+        var constructor = findInjectableConstructor(providerCl);
+        var parameterTypes = constructor.getParameterTypes();
         var properties = findInjectableProperties(providerCl);
         registerProvider(cl, () -> {
-            var instance = Utils.newInstance(constructor);
-            for(var property : properties){
+            var args = Arrays.stream(parameterTypes)
+                    .map(this::lookupInstance)
+                    .toArray();
+            var instance = Utils.newInstance(constructor, args);
+            for (var property : properties) {
                 var setter = property.getWriteMethod();
                 var value = lookupInstance(setter.getParameterTypes()[0]);
                 Utils.invokeMethod(instance, setter, value);
             }
-            return instance;
+            return cl.cast(instance);
         });
+    }
+
+    private static Constructor<?> findInjectableConstructor(Class<?> providerCl){
+        return Arrays.stream(providerCl.getConstructors())
+                .filter(constructor -> constructor.isAnnotationPresent(Inject.class))
+                .reduce((c1, c2) -> {
+                    throw new IllegalStateException("multiple constructors annotated " + c1 + " " + c2);
+                })
+                .orElseGet(() -> Utils.defaultConstructor(providerCl));
     }
 }
