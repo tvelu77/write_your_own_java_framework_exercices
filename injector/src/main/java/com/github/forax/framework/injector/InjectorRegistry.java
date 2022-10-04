@@ -38,13 +38,16 @@ public final class InjectorRegistry {
         }
     }
 
-    static <T> List<PropertyDescriptor> findInjectableProperties(Class<T> cl){
+    // package private for the test unit
+    static <T> List<PropertyDescriptor> findInjectableProperties(Class<T> cl) {
         Objects.requireNonNull(cl);
         var beanInfo = Utils.beanInfo(cl);
         var properties = beanInfo.getPropertyDescriptors();
         return Arrays.stream(properties)
-                .filter(property -> property.getWriteMethod() != null)
-                .filter(property -> property.getWriteMethod().isAnnotationPresent(Inject.class))
+                .filter(property -> {
+                    var setter = property.getWriteMethod();
+                    return setter != null && setter.isAnnotationPresent(Inject.class);
+                })
                 .toList();
     }
 }
