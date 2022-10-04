@@ -20,4 +20,9 @@
       <module name="write_your_own_java_framework_exercices" target="19" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="injector" options="--add-modules java.desktop" />
+    </option>
+  </component>
 </project>
