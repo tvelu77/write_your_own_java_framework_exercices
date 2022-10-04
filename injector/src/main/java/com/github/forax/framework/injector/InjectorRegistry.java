@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public final class InjectorRegistry {
-    private final HashMap<Class, Object> map;
+    private final HashMap<Class<?>, Object> map;
 
     public InjectorRegistry() {
         map = new HashMap<>();
@@ -16,10 +16,10 @@ public final class InjectorRegistry {
         map.putIfAbsent(cl, object);
     }
 
-    public <T> T lookupInstance(Class<T> cl){
+    public <T> T lookupInstance(Class<T> cl) {
         Objects.requireNonNull(cl);
         var result = cl.cast(map.get(cl));
-        if(result == null){
+        if (result == null) {
             throw new IllegalStateException(cl + " is not found");
         }
         return result;
