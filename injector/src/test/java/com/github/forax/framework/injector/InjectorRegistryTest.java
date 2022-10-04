@@ -113,7 +113,7 @@ public class InjectorRegistryTest {
   }
 
 
-  /*@Nested
+  @Nested
   public class Q3 {
     @Test @Tag("Q3")
     public void registerProvider() {
@@ -158,7 +158,7 @@ public class InjectorRegistryTest {
   }
 
 
-  @Nested
+  /*@Nested
   public class Q4 {
     public static class A {
       @Inject
