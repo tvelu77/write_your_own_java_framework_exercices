@@ -50,4 +50,9 @@ public final class InjectorRegistry {
                 })
                 .toList();
     }
+
+    public <T> void registerProviderClass(Class<T> cl, Class<T> providerCl){
+        Objects.requireNonNull(cl);
+        Objects.requireNonNull(providerCl);
+    }
 }
