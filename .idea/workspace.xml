@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="update by IntelliJ (Injector - exercise 1/2 upgraded variable checking)">
+    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="Injector - exercise 3 done">
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_9_0.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_9_0.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_9_0.xml" afterDir="false" />
@@ -203,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664869999621</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Injector - exercise 3 done">
+      <created>1664871188100</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1664871188100</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -231,7 +238,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add IDEA files" />
     <MESSAGE value="add support of Github action" />
     <MESSAGE value="update IDEA files" />
     <MESSAGE value="add maven cache" />
@@ -256,6 +262,7 @@
     <MESSAGE value="update by IntelliJ (Injector - exercise 1/2 done)" />
     <MESSAGE value="update by IntelliJ (Injector - exercise 1/2 fixed a typo)" />
     <MESSAGE value="update by IntelliJ (Injector - exercise 1/2 upgraded variable checking)" />
-    <option name="LAST_COMMIT_MESSAGE" value="update by IntelliJ (Injector - exercise 1/2 upgraded variable checking)" />
+    <MESSAGE value="Injector - exercise 3 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Injector - exercise 3 done" />
   </component>
 </project>
