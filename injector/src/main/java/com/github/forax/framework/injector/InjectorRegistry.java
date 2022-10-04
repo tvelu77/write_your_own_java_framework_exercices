@@ -83,4 +83,8 @@ public final class InjectorRegistry {
                 })
                 .orElseGet(() -> Utils.defaultConstructor(providerCl));
     }
+
+    public void registerProvideClass(Class<?> providerClass){
+        return registerProviderClass(providerClass, providerClass);
+    }
 }
