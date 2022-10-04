@@ -38,7 +38,7 @@ public final class InjectorRegistry {
         }
     }
 
-    public static <T> List<PropertyDescriptor> findInjectableProperties(Class<T> cl){
+    static <T> List<PropertyDescriptor> findInjectableProperties(Class<T> cl){
         Objects.requireNonNull(cl);
         var beanInfo = Utils.beanInfo(cl);
         var properties = beanInfo.getPropertyDescriptors();
