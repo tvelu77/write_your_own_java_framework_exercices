@@ -84,7 +84,12 @@ public final class InjectorRegistry {
                 .orElseGet(() -> Utils.defaultConstructor(providerCl));
     }
 
-    public void registerProvideClass(Class<?> providerClass){
-        return registerProviderClass(providerClass, providerClass);
+    public void registerProviderClass(Class<?> providerClass){
+        Objects.requireNonNull(providerClass);
+        registerProviderClass0(providerClass);
+    }
+
+    private <T> void registerProviderClass0(Class<T> type){
+        registerProviderClass(type, type);
     }
 }
