@@ -14,12 +14,20 @@ public final class InterceptorRegistry {
   private final HashMap<Class<?>, List<AroundAdvice>> adviceMap = new HashMap<>();
   private final HashMap<Class<?>, List<Interceptor>> interceptorMap = new HashMap<>();
 
-  public void addAroundAdvice(Class<?> annotationClass,
+  public void addAroundAdvice(Class<? extends Annotation> annotationClass,
                                   AroundAdvice aroundAdvice) {
     Objects.requireNonNull(annotationClass);
     Objects.requireNonNull(aroundAdvice);
-    adviceMap.computeIfAbsent(annotationClass, e -> new ArrayList<>())
-            .add(aroundAdvice);
+    addInterceptor(annotationClass, ((instance, method, args, invocation) -> {
+      Object result = null;
+      aroundAdvice.before(instance, method, args);
+      try {
+        result = invocation.proceed(instance, method, args);
+      } finally {
+        aroundAdvice.after(instance, method, args, result);
+      }
+      return result;
+    }));
   }
 
   public void addInterceptor(Class<? extends Annotation> annotationClass,
@@ -37,19 +45,9 @@ public final class InterceptorRegistry {
     return type.cast(Proxy.newProxyInstance(type.getClassLoader(),
             new Class<?>[] { type },
             (proxy, method, args) -> {
-              var advices = findAdvices(method);
-              for(var advice : advices) {
-                advice.before(delegate, method, args);
-              }
-              Object result = null;
-              try {
-                result = Utils.invokeMethod(delegate, method, args);
-              } finally {
-                for(var advice : advices) {
-                  advice.after(delegate, method, args, result);
-                }
-              }
-              return result;
+              var interceptors = findInterceptors(method);
+              var invocation = getInvocation(interceptors);
+              return invocation.proceed(delegate, method, args);
             }));
   }
 

@@ -338,7 +338,7 @@ public class InterceptorRegistryTest {
   }  // end of Q4
 
 
-  /*@Nested
+  @Nested
   public class Q5 {
     @Retention(RUNTIME)
     @Target(METHOD)
@@ -535,7 +535,7 @@ public class InterceptorRegistryTest {
   }  // end of Q5
 
 
-  @Nested
+  /*@Nested
   class Q6 {
     @Test @Tag("Q6")
     public void cacheCorrectlyInvalidated() {
