@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class InterceptorRegistryTest {
-  /*
+
   @Nested
   public class Q1 {
 
@@ -125,7 +125,7 @@ public class InterceptorRegistryTest {
   } // end Q1
 
 
-  @Nested
+  /*@Nested
   public class Q2 {
     @Retention(RUNTIME)
     @Target(METHOD)

@@ -13,5 +13,28 @@ import java.util.stream.Stream;
 public final class InterceptorRegistry {
   private AroundAdvice advice;
 
-  // TODO
+  public void addAroundAdvice(Class<?> annotationClass,
+                                  AroundAdvice aroundAdvice) {
+    Objects.requireNonNull(annotationClass);
+    Objects.requireNonNull(aroundAdvice);
+    advice = aroundAdvice;
+  }
+
+  public <T> T createProxy(Class<T> type,
+                                T delegate) {
+    Objects.requireNonNull(type);
+    Objects.requireNonNull(delegate);
+    return type.cast(Proxy.newProxyInstance(type.getClassLoader(),
+            new Class<?>[] { type },
+            (proxy, method, args) -> {
+              advice.before(delegate, method, args);
+              Object result = null;
+              try {
+                result = Utils.invokeMethod(delegate, method, args);
+              } finally {
+                advice.after(delegate, method, args, result);
+              }
+              return result;
+            }));
+  }
 }
