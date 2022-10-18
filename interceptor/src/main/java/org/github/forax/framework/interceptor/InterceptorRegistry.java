@@ -11,13 +11,14 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public final class InterceptorRegistry {
-  private AroundAdvice advice;
+  private HashMap<Class<?>, List<AroundAdvice>>  adviceMap = new HashMap<>();
 
   public void addAroundAdvice(Class<?> annotationClass,
                                   AroundAdvice aroundAdvice) {
     Objects.requireNonNull(annotationClass);
     Objects.requireNonNull(aroundAdvice);
-    advice = aroundAdvice;
+    adviceMap.computeIfAbsent(annotationClass, e -> new ArrayList<>())
+            .add(aroundAdvice);
   }
 
   public <T> T createProxy(Class<T> type,
@@ -27,14 +28,27 @@ public final class InterceptorRegistry {
     return type.cast(Proxy.newProxyInstance(type.getClassLoader(),
             new Class<?>[] { type },
             (proxy, method, args) -> {
-              advice.before(delegate, method, args);
+              var advices = findAdvices(method);
+              for(var advice : advices) {
+                advice.before(delegate, method, args);
+              }
               Object result = null;
               try {
                 result = Utils.invokeMethod(delegate, method, args);
               } finally {
-                advice.after(delegate, method, args, result);
+                for(var advice : advices) {
+                  advice.after(delegate, method, args, result);
+                }
               }
               return result;
             }));
   }
+
+  List<AroundAdvice> findAdvices(Method method) {
+      return Arrays.stream(method.getAnnotations())
+              .flatMap(annotation -> adviceMap.getOrDefault(annotation.annotationType(),
+                      List.of()).stream())
+              .toList();
+  }
+
 }
