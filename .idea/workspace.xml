@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="Interceptor - ex4 done">
+    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="Interceptor - ex5 done">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interceptor/src/main/java/org/github/forax/framework/interceptor/InterceptorRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/interceptor/src/main/java/org/github/forax/framework/interceptor/InterceptorRegistry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interceptor/src/test/java/org/github/forax/framework/interceptor/InterceptorRegistryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/interceptor/src/test/java/org/github/forax/framework/interceptor/InterceptorRegistryTest.java" afterDir="false" />
@@ -298,7 +299,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666084248827</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Interceptor - ex5 done">
+      <created>1666085136432</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1666085136432</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -326,7 +334,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="use throw switch in the tests" />
     <MESSAGE value="remove weird import that make the CI fails" />
     <MESSAGE value="fix typo" />
     <MESSAGE value="update injector and rewrite annotation scanner" />
@@ -351,6 +358,7 @@
     <MESSAGE value="Interceptor - ex3 done" />
     <MESSAGE value="Interceptor - fields are final" />
     <MESSAGE value="Interceptor - ex4 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Interceptor - ex4 done" />
+    <MESSAGE value="Interceptor - ex5 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Interceptor - ex5 done" />
   </component>
 </project>

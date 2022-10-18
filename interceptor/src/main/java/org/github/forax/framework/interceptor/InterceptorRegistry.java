@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 public final class InterceptorRegistry {
   private final HashMap<Class<?>, List<AroundAdvice>> adviceMap = new HashMap<>();

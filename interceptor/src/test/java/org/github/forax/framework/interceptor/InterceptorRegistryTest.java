@@ -535,8 +535,10 @@ public class InterceptorRegistryTest {
   }  // end of Q5
 
 
-  /*@Nested
+  @Nested
   class Q6 {
+    @Retention(RUNTIME)
+    @interface Example1 {}
     @Test @Tag("Q6")
     public void cacheCorrectlyInvalidated() {
       interface Foo {
@@ -557,7 +559,7 @@ public class InterceptorRegistryTest {
   }  // end of Q6
 
 
-  @Nested
+  /*@Nested
   public class Q7 {
 
     @Retention(RUNTIME)
