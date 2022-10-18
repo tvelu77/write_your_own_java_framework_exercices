@@ -263,7 +263,7 @@ public class InterceptorRegistryTest {
   }  // end of Q3
 
 
-  /*@Nested
+  @Nested
   public class Q4 {
     @Test @Tag("Q4")
     public void findInterceptorsNoInterceptor() throws Throwable {
@@ -338,7 +338,7 @@ public class InterceptorRegistryTest {
   }  // end of Q4
 
 
-  @Nested
+  /*@Nested
   public class Q5 {
     @Retention(RUNTIME)
     @Target(METHOD)

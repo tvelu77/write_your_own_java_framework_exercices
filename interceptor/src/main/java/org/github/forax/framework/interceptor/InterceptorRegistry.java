@@ -66,4 +66,14 @@ public final class InterceptorRegistry {
                     List.of()).stream())
             .toList();
   }
+
+  static Invocation getInvocation(List<Interceptor> interceptorList) {
+    Invocation invocation = Utils::invokeMethod;
+    for(var interceptor : Utils.reverseList(interceptorList)) {
+      var oldInvocation = invocation;
+      invocation = (instance, method, args) ->
+              interceptor.intercept(instance, method, args, oldInvocation);
+    }
+    return invocation;
+  }
 }
