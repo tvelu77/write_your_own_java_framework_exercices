@@ -559,7 +559,7 @@ public class InterceptorRegistryTest {
   }  // end of Q6
 
 
-  /*@Nested
+  @Nested
   public class Q7 {
 
     @Retention(RUNTIME)
@@ -603,6 +603,4 @@ public class InterceptorRegistryTest {
       assertEquals("-hello-", foo.hello("hello"));
     }
   }  // end Q7
-
-  */
 }
