@@ -11,8 +11,8 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public final class InterceptorRegistry {
-  private HashMap<Class<?>, List<AroundAdvice>> adviceMap = new HashMap<>();
-  private HashMap<Class<?>, List<Interceptor>> interceptorMap = new HashMap<>();
+  private final HashMap<Class<?>, List<AroundAdvice>> adviceMap = new HashMap<>();
+  private final HashMap<Class<?>, List<Interceptor>> interceptorMap = new HashMap<>();
 
   public void addAroundAdvice(Class<?> annotationClass,
                                   AroundAdvice aroundAdvice) {
@@ -22,7 +22,7 @@ public final class InterceptorRegistry {
             .add(aroundAdvice);
   }
 
-  public void addInterceptor(Class<?> annotationClass,
+  public void addInterceptor(Class<? extends Annotation> annotationClass,
                              Interceptor interceptor) {
     Objects.requireNonNull(annotationClass);
     Objects.requireNonNull(interceptor);
