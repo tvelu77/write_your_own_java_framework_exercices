@@ -11,7 +11,8 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public final class InterceptorRegistry {
-  private HashMap<Class<?>, List<AroundAdvice>>  adviceMap = new HashMap<>();
+  private HashMap<Class<?>, List<AroundAdvice>> adviceMap = new HashMap<>();
+  private HashMap<Class<?>, List<Interceptor>> interceptorMap = new HashMap<>();
 
   public void addAroundAdvice(Class<?> annotationClass,
                                   AroundAdvice aroundAdvice) {
@@ -19,6 +20,14 @@ public final class InterceptorRegistry {
     Objects.requireNonNull(aroundAdvice);
     adviceMap.computeIfAbsent(annotationClass, e -> new ArrayList<>())
             .add(aroundAdvice);
+  }
+
+  public void addInterceptor(Class<?> annotationClass,
+                             Interceptor interceptor) {
+    Objects.requireNonNull(annotationClass);
+    Objects.requireNonNull(interceptor);
+    interceptorMap.computeIfAbsent(annotationClass, e -> new ArrayList<>())
+            .add(interceptor);
   }
 
   public <T> T createProxy(Class<T> type,
@@ -51,4 +60,10 @@ public final class InterceptorRegistry {
               .toList();
   }
 
+  List<Interceptor> findInterceptors(Method method) {
+    return Arrays.stream(method.getAnnotations())
+            .flatMap(annotation -> interceptorMap.getOrDefault(annotation.annotationType(),
+                    List.of()).stream())
+            .toList();
+  }
 }
