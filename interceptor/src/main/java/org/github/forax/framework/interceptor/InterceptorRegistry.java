@@ -57,14 +57,16 @@ public final class InterceptorRegistry {
 
   List<AroundAdvice> findAdvices(Method method) {
       return Arrays.stream(method.getAnnotations())
-              .flatMap(annotation -> adviceMap.getOrDefault(annotation.annotationType(),
+              .flatMap(annotation ->
+                      adviceMap.getOrDefault(annotation.annotationType(),
                       List.of()).stream())
               .toList();
   }
 
   List<Interceptor> findInterceptors(Method method) {
     return Arrays.stream(method.getAnnotations())
-            .flatMap(annotation -> interceptorMap.getOrDefault(annotation.annotationType(),
+            .flatMap(annotation ->
+                    interceptorMap.getOrDefault(annotation.annotationType(),
                     List.of()).stream())
             .toList();
   }
