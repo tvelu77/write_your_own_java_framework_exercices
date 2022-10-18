@@ -13,6 +13,8 @@ public final class InterceptorRegistry {
   private final HashMap<Class<?>, List<AroundAdvice>> adviceMap = new HashMap<>();
   private final HashMap<Class<?>, List<Interceptor>> interceptorMap = new HashMap<>();
 
+  private final HashMap<Method, Invocation> cache = new HashMap<>();
+
   public void addAroundAdvice(Class<? extends Annotation> annotationClass,
                                   AroundAdvice aroundAdvice) {
     Objects.requireNonNull(annotationClass);
@@ -35,6 +37,7 @@ public final class InterceptorRegistry {
     Objects.requireNonNull(interceptor);
     interceptorMap.computeIfAbsent(annotationClass, e -> new ArrayList<>())
             .add(interceptor);
+    cache.clear();
   }
 
   public <T> T createProxy(Class<T> type,
@@ -44,8 +47,10 @@ public final class InterceptorRegistry {
     return type.cast(Proxy.newProxyInstance(type.getClassLoader(),
             new Class<?>[] { type },
             (proxy, method, args) -> {
-              var interceptors = findInterceptors(method);
-              var invocation = getInvocation(interceptors);
+              var invocation = cache.computeIfAbsent(method, m -> {
+                var interceptors = findInterceptors(m);
+                return getInvocation(interceptors);
+              });
               return invocation.proceed(delegate, method, args);
             }));
   }
