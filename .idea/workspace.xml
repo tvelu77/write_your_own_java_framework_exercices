@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="ORM - better exception handling for ex1">
+    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="ORM - ex3 is done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" afterDir="false" />
@@ -354,7 +354,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666685505639</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="ORM - ex3 is done">
+      <created>1666688069831</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1666688069831</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -382,7 +389,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="update by IntelliJ (java 17 -&gt; java 19 and readme update)" />
     <MESSAGE value="update by IntelliJ (Exercise 6 finished)" />
     <MESSAGE value="update by IntelliJ (Injector - exercise 1/2 done)" />
     <MESSAGE value="update by IntelliJ (Injector - exercise 1/2 fixed a typo)" />
@@ -407,6 +413,7 @@
     <MESSAGE value="ORM - ex1 is done" />
     <MESSAGE value="ORM - ex2 is done" />
     <MESSAGE value="ORM - better exception handling for ex1" />
-    <option name="LAST_COMMIT_MESSAGE" value="ORM - better exception handling for ex1" />
+    <MESSAGE value="ORM - ex3 is done" />
+    <option name="LAST_COMMIT_MESSAGE" value="ORM - ex3 is done" />
   </component>
 </project>

@@ -120,13 +120,23 @@ public final class ORM {
     var text = "CREATE TABLE " + tableName + "(\n" +
             Arrays.stream(beanInfo.getPropertyDescriptors())
                     .filter(property -> !property.getName().equals("class"))
-                    .map(property -> findColumnName(property) + " VARCHAR(255)")
+                    .map(property -> findColumnName(property) + " " + findColumnType(property))
                     .collect(Collectors.joining(", "))
             + ");";
     try (var statement = connection.createStatement()) {
       statement.execute(text);
     }
     connection.commit();
+  }
+
+  private static String findColumnType(PropertyDescriptor property) {
+    var type = property.getPropertyType();
+    var mapping = TYPE_MAPPING.get(type);
+    if (mapping == null) {
+      throw new IllegalStateException("unknown property type " + property);
+    }
+    var nullable = type.isPrimitive() ? " NOT NULL" : "";
+    return mapping + nullable;
   }
 
   static String findTableName(Class<?> beanClass) {
@@ -140,5 +150,7 @@ public final class ORM {
     var name = column == null ? property.getName() : column.value();
     return name.toUpperCase(Locale.ROOT);
   }
+
+
 
 }

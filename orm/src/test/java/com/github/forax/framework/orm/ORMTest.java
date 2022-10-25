@@ -343,7 +343,7 @@ public class ORMTest {
     }
   }
 
-  /*@Nested
+  @Nested
   public class Q4 {
 
     @Test @Tag("Q4")
@@ -432,7 +432,7 @@ public class ORMTest {
     }
   }
 
-  @Nested
+  /*@Nested
   public class Q5 {
 
     @Test @Tag("Q5")
