@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class ORM {
@@ -110,4 +111,34 @@ public final class ORM {
     }
     return connection;
   }
+
+  public static void createTable(Class<?> beanClass) throws SQLException {
+    Objects.requireNonNull(beanClass);
+    var connection = currentConnection();
+    var tableName = findTableName(beanClass);
+    var beanInfo = Utils.beanInfo(beanClass);
+    var text = "CREATE TABLE " + tableName + "(\n" +
+            Arrays.stream(beanInfo.getPropertyDescriptors())
+                    .filter(property -> !property.getName().equals("class"))
+                    .map(property -> findColumnName(property) + " VARCHAR(255)")
+                    .collect(Collectors.joining(", "))
+            + ");";
+    try (var statement = connection.createStatement()) {
+      statement.execute(text);
+    }
+    connection.commit();
+  }
+
+  static String findTableName(Class<?> beanClass) {
+    var table = beanClass.getAnnotation(Table.class);
+    var name = table == null ? beanClass.getSimpleName() : table.value();
+    return name.toUpperCase(Locale.ROOT);
+  }
+
+  static String findColumnName(PropertyDescriptor property) {
+    var column = property.getReadMethod().getAnnotation(Column.class);
+    var name = column == null ? property.getName() : column.value();
+    return name.toUpperCase(Locale.ROOT);
+  }
+
 }

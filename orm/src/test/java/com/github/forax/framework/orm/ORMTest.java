@@ -207,7 +207,7 @@ public class ORMTest {
     public EmptyBean() { }
   }
 
-  /*@Nested
+  @Nested
   public class Q3 {
 
     @Test @Tag("Q3")
@@ -343,7 +343,7 @@ public class ORMTest {
     }
   }
 
-  @Nested
+  /*@Nested
   public class Q4 {
 
     @Test @Tag("Q4")
