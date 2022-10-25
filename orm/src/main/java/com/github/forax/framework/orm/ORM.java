@@ -117,12 +117,26 @@ public final class ORM {
     var connection = currentConnection();
     var tableName = findTableName(beanClass);
     var beanInfo = Utils.beanInfo(beanClass);
-    var text = "CREATE TABLE " + tableName + "(\n" +
-            Arrays.stream(beanInfo.getPropertyDescriptors())
-                    .filter(property -> !property.getName().equals("class"))
-                    .map(property -> findColumnName(property) + " " + findColumnType(property))
-                    .collect(Collectors.joining(", "))
-            + ");";
+    var joiner = new StringJoiner(",\n");
+    var id = (String) null;
+    for (var property : beanInfo.getPropertyDescriptors()) {
+      if (property.getName().equals("class")) {
+        continue;
+      }
+      var columnName = findColumnName(property);
+      if (isId(property)) {
+        if (id != null) {
+          throw new IllegalStateException("multiple id defined" + id + " " + columnName);
+        }
+        id = columnName;
+      }
+      var line = columnName + " " + findColumnType(property);
+      joiner.add(line);
+    }
+    if (id != null) {
+      joiner.add("PRIMARY KEY (" + id + ")");
+    }
+    var text = "CREATE TABLE " + tableName + "(\n" + joiner.toString() + ");";
     try (var statement = connection.createStatement()) {
       statement.execute(text);
     }
@@ -136,7 +150,9 @@ public final class ORM {
       throw new IllegalStateException("unknown property type " + property);
     }
     var nullable = type.isPrimitive() ? " NOT NULL" : "";
-    return mapping + nullable;
+    var generatedValue = property.getReadMethod().isAnnotationPresent(GeneratedValue.class);
+    var autoIncrement = generatedValue ? " AUTO_INCREMENT" : "";
+    return mapping + nullable + autoIncrement;
   }
 
   static String findTableName(Class<?> beanClass) {
@@ -149,6 +165,10 @@ public final class ORM {
     var column = property.getReadMethod().getAnnotation(Column.class);
     var name = column == null ? property.getName() : column.value();
     return name.toUpperCase(Locale.ROOT);
+  }
+
+  private static boolean isId(PropertyDescriptor property) {
+    return property.getReadMethod().isAnnotationPresent(Id.class);
   }
 
 
