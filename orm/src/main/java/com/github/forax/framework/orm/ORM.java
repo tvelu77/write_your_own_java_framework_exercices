@@ -104,6 +104,26 @@ public final class ORM {
     }
   }
 
+  public static <T> T createRepository(Class<T> repositoryType) {
+    Objects.requireNonNull(repositoryType);
+    return repositoryType.cast(Proxy.newProxyInstance(repositoryType.getClassLoader(),
+            new Class<?>[] { repositoryType },
+            (proxy, method, args) -> {
+              if(CONNECTION_THREAD_LOCAL.get() == null) {
+                throw new IllegalStateException("no connection available");
+              }
+              switch (method) {
+                case "findAll()" -> return T[];
+                case "equals",
+                        "hashCode",
+                        "toString" -> throw new UnsupportedOperationException();
+
+                return getInvocation(interceptors);
+              });
+              return invocation.proceed(delegate, method, args);
+            }));
+  }
+
   static Connection currentConnection() {
     var connection = CONNECTION_THREAD_LOCAL.get();
     if (connection == null) {
