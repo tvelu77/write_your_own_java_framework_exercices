@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("static-method")
 public class ORMTest {
-  /*
+
   @Nested
   public class Q1 {
     @Test @Tag("Q1")
@@ -84,7 +84,7 @@ public class ORMTest {
   }
 
 
-  @Nested
+  /*@Nested
   public class Q2 {
 
     @Test @Tag("Q2")

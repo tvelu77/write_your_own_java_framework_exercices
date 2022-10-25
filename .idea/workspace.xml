@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="Interceptor - cleaned the program">
+    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="Interceptor - ex7 done">
+      <change afterPath="$PROJECT_DIR$/orm/.attach_pid54541" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interceptor/src/main/java/org/github/forax/framework/interceptor/InterceptorRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/interceptor/src/main/java/org/github/forax/framework/interceptor/InterceptorRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interceptor/src/test/java/org/github/forax/framework/interceptor/InterceptorRegistryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/interceptor/src/test/java/org/github/forax/framework/interceptor/InterceptorRegistryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,17 +49,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/thomas/Documents/esipe/INFO2/JAVA_INSIDE/write_your_own_java_framework_exercices&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "/home/thomas/Documents/esipe/INFO2/JAVA_INSIDE/write_your_own_java_framework_exercices",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/injector" />
@@ -77,7 +79,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.InterceptorRegistryTest">
+  <component name="RunManager" selected="JUnit.ORMTest">
     <configuration name="All in write_your_own_java_framework_exercices" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="write_your_own_java_framework_exercices" />
       <option name="PACKAGE_NAME" value="" />
@@ -96,21 +98,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.github.forax.framework.injector" />
       <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.injector.InjectorRegistryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="InterceptorRegistryTest$Q2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="interceptor" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.github.forax.framework.interceptor.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.github.forax.framework.interceptor.InterceptorRegistryTest" />
-      <option name="MAIN_CLASS_NAME" value="org.github.forax.framework.interceptor.InterceptorRegistryTest$Q2" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -146,13 +133,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ORMTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="orm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ORMTest" />
         <item itemvalue="JUnit.InterceptorRegistryTest" />
         <item itemvalue="JUnit.InjectorRegistryTest" />
         <item itemvalue="JUnit.JSONWriterTest" />
         <item itemvalue="JUnit.All in write_your_own_java_framework_exercices" />
-        <item itemvalue="JUnit.InterceptorRegistryTest$Q2" />
       </list>
     </recent_temporary>
   </component>
@@ -326,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666086477614</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Interceptor - ex7 done">
+      <created>1666087533482</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1666087533482</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -377,8 +386,8 @@
     <MESSAGE value="Interceptor - ex4 done" />
     <MESSAGE value="Interceptor - ex5 done" />
     <MESSAGE value="Interceptor - fixed an error in ex6" />
-    <MESSAGE value="Interceptor - ex7 done" />
     <MESSAGE value="Interceptor - cleaned the program" />
-    <option name="LAST_COMMIT_MESSAGE" value="Interceptor - cleaned the program" />
+    <MESSAGE value="Interceptor - ex7 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Interceptor - ex7 done" />
   </component>
 </project>

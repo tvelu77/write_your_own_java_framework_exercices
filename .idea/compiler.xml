@@ -24,6 +24,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="injector" options="--add-modules java.desktop" />
       <module name="mapper" options="--add-modules java.desktop" />
+      <module name="orm" options="--add-modules java.sql,java.desktop" />
     </option>
   </component>
 </project>

@@ -19,6 +19,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public final class ORM {
@@ -75,4 +76,33 @@ public final class ORM {
   // --- do not change the code above
 
   //TODO
+
+  private static final ThreadLocal<Connection> CONNECTION_THREAD_LOCAL = new ThreadLocal<>();
+
+  public static void transaction(DataSource dataSource,
+                                 TransactionBlock block) throws SQLException {
+
+    Objects.requireNonNull(dataSource);
+    Objects.requireNonNull(block);
+    try (var connection = dataSource.getConnection()) {
+      CONNECTION_THREAD_LOCAL.set(connection);
+      try {
+        block.run();
+        connection.commit();
+      } catch (SQLException | RuntimeException e) {
+        connection.rollback();
+        throw e;
+      } finally {
+        CONNECTION_THREAD_LOCAL.remove();
+      }
+    }
+  }
+
+  static Connection currentConnection() {
+    var connection = CONNECTION_THREAD_LOCAL.get();
+    if (connection == null) {
+      throw new IllegalStateException("no connection available");
+    }
+    return connection;
+  }
 }
