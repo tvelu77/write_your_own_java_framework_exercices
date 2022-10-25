@@ -91,7 +91,11 @@ public final class ORM {
         block.run();
         connection.commit();
       } catch (SQLException | RuntimeException e) {
-        connection.rollback();
+        try {
+          connection.rollback();
+        } catch (SQLException e2) {
+          e.addSuppressed(e2);
+        }
         throw e;
       } finally {
         CONNECTION_THREAD_LOCAL.remove();
