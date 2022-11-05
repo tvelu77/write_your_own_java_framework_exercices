@@ -592,7 +592,7 @@ public class ORMTest {
     }
   }
 
-  /*@Nested
+  @Nested
   public class Q6 {
     @Test @Tag("Q6")
     public void testFindAllEmptyTable() throws SQLException {
@@ -653,7 +653,7 @@ public class ORMTest {
     }
   }
 
-  @Nested
+  /*@Nested
   public class Q7 {
 
     @Test @Tag("Q7")

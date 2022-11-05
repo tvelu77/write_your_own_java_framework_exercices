@@ -112,16 +112,14 @@ public final class ORM {
               if(CONNECTION_THREAD_LOCAL.get() == null) {
                 throw new IllegalStateException("no connection available");
               }
-              switch (method) {
-                case "findAll()" -> return T[];
-                case "equals",
-                        "hashCode",
-                        "toString" -> throw new UnsupportedOperationException();
-
-                return getInvocation(interceptors);
-              });
-              return invocation.proceed(delegate, method, args);
-            }));
+              return switch (method.getName()) {
+                case "findAll" -> List.of();
+                case "equals", "hashCode", "toString"
+                        -> throw new UnsupportedOperationException("not supported " + method);
+                default -> throw new IllegalStateException("unknown method " + method);
+              };
+            })
+    );
   }
 
   static Connection currentConnection() {
