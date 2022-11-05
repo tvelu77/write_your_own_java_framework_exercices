@@ -92,12 +92,13 @@ public final class ORM {
         block.run();
         connection.commit();
       } catch (SQLException | RuntimeException e) {
+        var cause = (e instanceof UncheckedSQLException unchecked)? unchecked.getCause(): e;
         try {
           connection.rollback();
         } catch (SQLException e2) {
-          e.addSuppressed(e2);
+          cause.addSuppressed(e2);
         }
-        throw e;
+        throw Utils.rethrow(cause);
       } finally {
         CONNECTION_THREAD_LOCAL.remove();
       }
@@ -106,20 +107,32 @@ public final class ORM {
 
   public static <T> T createRepository(Class<T> repositoryType) {
     Objects.requireNonNull(repositoryType);
+    var beanType = findBeanTypeFromRepository(repositoryType);
+    var beanInfo = Utils.beanInfo(beanType);
+    var tableName = findTableName(beanType);
+    var constructor = Utils.defaultConstructor(beanType);
     return repositoryType.cast(Proxy.newProxyInstance(repositoryType.getClassLoader(),
             new Class<?>[] { repositoryType },
             (proxy, method, args) -> {
-              if(CONNECTION_THREAD_LOCAL.get() == null) {
+              var connection = currentConnection();
+              var name = method.getName();
+              if (CONNECTION_THREAD_LOCAL.get() == null) {
                 throw new IllegalStateException("no connection available");
               }
-              return switch (method.getName()) {
-                case "findAll" -> List.of();
-                case "equals", "hashCode", "toString"
-                        -> throw new UnsupportedOperationException("not supported " + method);
-                default -> throw new IllegalStateException("unknown method " + method);
-              };
-            })
-    );
+              try {
+                return switch (method.getName()) {
+                  case "findAll" -> {
+                    var query = "SELECT * FROM " + tableName;
+                    yield findAll(connection, query, beanInfo, constructor);
+                  }
+                  case "equals", "hashCode", "toString" -> throw new UnsupportedOperationException("not supported " + method);
+                  default -> throw new IllegalStateException("unknown method " + method);
+                };
+              } catch (SQLException e) {
+                throw new UncheckedSQLException(e);
+              }
+            }
+    ));
   }
 
   static Connection currentConnection() {
@@ -183,6 +196,38 @@ public final class ORM {
     var column = property.getReadMethod().getAnnotation(Column.class);
     var name = column == null ? property.getName() : column.value();
     return name.toUpperCase(Locale.ROOT);
+  }
+
+  static Object toEntityClass(ResultSet resultSet,
+                              BeanInfo beanInfo,
+                              Constructor<?> constructor) throws SQLException {
+    var instance = Utils.newInstance(constructor);
+    var properties = beanInfo.getPropertyDescriptors();
+    for (var property : properties) {
+      var name = property.getName();
+      if (name.equals("class")) {
+        continue;
+      }
+      var value = resultSet.getObject(name);
+      Utils.invokeMethod(instance, property.getWriteMethod(), value);
+    }
+    return instance;
+  }
+
+  static List<Object> findAll(Connection connection,
+                              String query,
+                              BeanInfo beanInfo,
+                              Constructor<?> constructor) throws SQLException {
+    var list = new ArrayList<>();
+    try(var statement = connection.prepareStatement(query)) {
+      try(var resultSet = statement.executeQuery()) {
+        while(resultSet.next()) {
+          var instance = toEntityClass(resultSet, beanInfo, constructor);
+          list.add(instance);
+        }
+      }
+    }
+    return list;
   }
 
   private static boolean isId(PropertyDescriptor property) {
