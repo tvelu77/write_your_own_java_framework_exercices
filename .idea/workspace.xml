@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="Interceptor - cleaned the program">
+    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="ORM - ex6 is done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interceptor/src/main/java/org/github/forax/framework/interceptor/InterceptorRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/interceptor/src/main/java/org/github/forax/framework/interceptor/InterceptorRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interceptor/src/test/java/org/github/forax/framework/interceptor/InterceptorRegistryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/interceptor/src/test/java/org/github/forax/framework/interceptor/InterceptorRegistryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +77,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.InterceptorRegistryTest">
+  <component name="RunManager" selected="JUnit.ORMTest">
     <configuration name="All in write_your_own_java_framework_exercices" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="write_your_own_java_framework_exercices" />
       <option name="PACKAGE_NAME" value="" />
@@ -96,21 +96,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.github.forax.framework.injector" />
       <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.injector.InjectorRegistryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="InterceptorRegistryTest$Q2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="interceptor" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.github.forax.framework.interceptor.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.github.forax.framework.interceptor.InterceptorRegistryTest" />
-      <option name="MAIN_CLASS_NAME" value="org.github.forax.framework.interceptor.InterceptorRegistryTest$Q2" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -146,13 +131,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ORMTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="orm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ORMTest" />
         <item itemvalue="JUnit.InterceptorRegistryTest" />
         <item itemvalue="JUnit.InjectorRegistryTest" />
         <item itemvalue="JUnit.JSONWriterTest" />
         <item itemvalue="JUnit.All in write_your_own_java_framework_exercices" />
-        <item itemvalue="JUnit.InterceptorRegistryTest$Q2" />
       </list>
     </recent_temporary>
   </component>
@@ -326,7 +326,63 @@
       <option name="project" value="LOCAL" />
       <updated>1666086477614</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Interceptor - ex7 done">
+      <created>1666087533482</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1666087533482</updated>
+    </task>
+    <task id="LOCAL-00025" summary="ORM - ex1 is done">
+      <created>1666684862790</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1666684862790</updated>
+    </task>
+    <task id="LOCAL-00026" summary="ORM - ex2 is done">
+      <created>1666685186169</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1666685186169</updated>
+    </task>
+    <task id="LOCAL-00027" summary="ORM - better exception handling for ex1">
+      <created>1666685505639</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1666685505639</updated>
+    </task>
+    <task id="LOCAL-00028" summary="ORM - ex3 is done">
+      <created>1666688069831</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1666688069831</updated>
+    </task>
+    <task id="LOCAL-00029" summary="ORM - ex4 is done">
+      <created>1666689236722</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1666689236722</updated>
+    </task>
+    <task id="LOCAL-00030" summary="ORM - ex5 is done">
+      <created>1666690939475</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1666690939476</updated>
+    </task>
+    <task id="LOCAL-00031" summary="ORM - ex6 is done">
+      <created>1667653339674</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1667653339674</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -354,13 +410,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="remove one star for the classpath scanning" />
-    <MESSAGE value="SQLi =&gt; JDBi" />
-    <MESSAGE value="update POM" />
-    <MESSAGE value="update by IntelliJ (java 17 -&gt; java 19 and readme update)" />
-    <MESSAGE value="update by IntelliJ (Exercise 6 finished)" />
-    <MESSAGE value="update by IntelliJ (Injector - exercise 1/2 done)" />
-    <MESSAGE value="update by IntelliJ (Injector - exercise 1/2 fixed a typo)" />
     <MESSAGE value="update by IntelliJ (Injector - exercise 1/2 upgraded variable checking)" />
     <MESSAGE value="Injector - exercise 3 done" />
     <MESSAGE value="Injector - exercise 4 done" />
@@ -377,8 +426,15 @@
     <MESSAGE value="Interceptor - ex4 done" />
     <MESSAGE value="Interceptor - ex5 done" />
     <MESSAGE value="Interceptor - fixed an error in ex6" />
-    <MESSAGE value="Interceptor - ex7 done" />
     <MESSAGE value="Interceptor - cleaned the program" />
-    <option name="LAST_COMMIT_MESSAGE" value="Interceptor - cleaned the program" />
+    <MESSAGE value="Interceptor - ex7 done" />
+    <MESSAGE value="ORM - ex1 is done" />
+    <MESSAGE value="ORM - ex2 is done" />
+    <MESSAGE value="ORM - better exception handling for ex1" />
+    <MESSAGE value="ORM - ex3 is done" />
+    <MESSAGE value="ORM - ex4 is done" />
+    <MESSAGE value="ORM - ex5 is done" />
+    <MESSAGE value="ORM - ex6 is done" />
+    <option name="LAST_COMMIT_MESSAGE" value="ORM - ex6 is done" />
   </component>
 </project>
