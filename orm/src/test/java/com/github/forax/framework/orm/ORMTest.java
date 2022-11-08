@@ -1128,21 +1128,21 @@ public class ORMTest {
     @Test @Tag("Q13")
     public void testFindPropertyBalance() {
       var beanInfo = Utils.beanInfo(Account.class);
-      var property = ORM.findProperty(Account.class, beanInfo, "balance");
+      var property = ORM.findProperty(beanInfo, "balance");
       assertEquals("balance", property.getName());
     }
 
     @Test @Tag("Q13")
     public void testFindPropertyId() {
       var beanInfo = Utils.beanInfo(Account.class);
-      var property = ORM.findProperty(Account.class, beanInfo, "id");
+      var property = ORM.findProperty(beanInfo, "id");
       assertEquals("id", property.getName());
     }
 
     @Test @Tag("Q13")
     public void testFindNoProperty() {
       var beanInfo = Utils.beanInfo(Account.class);
-      assertThrows(IllegalStateException.class, () ->  ORM.findProperty(Account.class, beanInfo, "noproperty"));
+      assertThrows(IllegalStateException.class, () ->  ORM.findProperty(beanInfo, "noproperty"));
     }
 
     @Test @Tag("Q13")

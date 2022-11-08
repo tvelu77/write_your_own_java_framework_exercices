@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="ex 11 - 12 are now done">
+    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="uncommented test for ex13">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -455,7 +457,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667905298063</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="uncommented test for ex13">
+      <created>1667905352077</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1667905352077</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -483,7 +492,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Interceptor - ex2 done" />
     <MESSAGE value="Interceptor - ex3 done" />
     <MESSAGE value="Interceptor - fields are final" />
     <MESSAGE value="Interceptor - ex4 done" />
@@ -508,7 +516,8 @@
     <MESSAGE value="uncommented test" />
     <MESSAGE value="ex 11 not working but 12 is ok" />
     <MESSAGE value="ex 11 - 12 are now done" />
-    <option name="LAST_COMMIT_MESSAGE" value="ex 11 - 12 are now done" />
+    <MESSAGE value="uncommented test for ex13" />
+    <option name="LAST_COMMIT_MESSAGE" value="uncommented test for ex13" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

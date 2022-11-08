@@ -305,6 +305,11 @@ public final class ORM {
     return property.getReadMethod().isAnnotationPresent(Id.class);
   }
 
-
-
+  static PropertyDescriptor findProperty(BeanInfo beanInfo, String name) {
+    return Arrays.stream(beanInfo.getPropertyDescriptors())
+            .filter(property -> !property.getName().equals("class"))
+            .filter(property -> property.getName().equals(name))
+            .findFirst()
+            .orElseThrow(() -> new IllegalStateException("no property named " + name));
+  }
 }
