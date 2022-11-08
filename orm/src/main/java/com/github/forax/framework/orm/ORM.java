@@ -210,7 +210,7 @@ public final class ORM {
     return instance;
   }
 
-  static List<Object> findAll(Connection connection,
+  static List<?> findAll(Connection connection,
                               String query,
                               BeanInfo beanInfo,
                               Constructor<?> constructor) throws SQLException {
