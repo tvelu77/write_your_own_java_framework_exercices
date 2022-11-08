@@ -9,10 +9,7 @@ import java.io.Serial;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -106,6 +103,7 @@ public final class ORM {
     var beanType = findBeanTypeFromRepository(repositoryType);
     var beanInfo = Utils.beanInfo(beanType);
     var tableName = findTableName(beanType);
+    var idProperty = findId(beanInfo);
     var constructor = Utils.defaultConstructor(beanType);
     return repositoryType.cast(Proxy.newProxyInstance(repositoryType.getClassLoader(),
             new Class<?>[] { repositoryType },
@@ -121,7 +119,7 @@ public final class ORM {
                     var query = "SELECT * FROM " + tableName;
                     yield findAll(connection, query, beanInfo, constructor);
                   }
-                  case "save" -> save(connection, tableName, beanInfo, args[0], null);
+                  case "save" -> save(connection, tableName, beanInfo, args[0], idProperty);
                   case "equals", "hashCode", "toString" ->
                           throw new UnsupportedOperationException("not supported " + method);
                   default -> throw new IllegalStateException("unknown method " + method);
@@ -228,13 +226,22 @@ public final class ORM {
     return list;
   }
 
+  static PropertyDescriptor findId(BeanInfo beanInfo) {
+    var properties = beanInfo.getPropertyDescriptors();
+    return Arrays.stream(properties)
+            .filter(property -> !property.getName().equals("class"))
+            .filter(property -> property.getReadMethod().isAnnotationPresent(Id.class))
+            .findFirst()
+            .orElse(null);
+  }
+
   static Object save(Connection connection,
                      String tableName,
                      BeanInfo beanInfo,
                      Object bean,
-                     String idProperty) throws SQLException {
+                     PropertyDescriptor idProperty) throws SQLException {
     var query = createSaveQuery(tableName, beanInfo);
-    try (var statement = connection.prepareStatement(query)) {
+    try (var statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
       var index = 1;
       for (var property : beanInfo.getPropertyDescriptors()) {
         if (property.getName().equals("class")) {
@@ -245,6 +252,15 @@ public final class ORM {
         statement.setObject(index++, value);
       }
       statement.executeUpdate();
+      if (idProperty != null) {
+        try (ResultSet resultSet = statement.getGeneratedKeys()) {
+          if (resultSet.next()) {
+            var key = resultSet.getObject(1);
+            var setter = idProperty.getWriteMethod();
+            Utils.invokeMethod(bean, setter, key);
+          }
+        }
+      }
     }
     return bean;
   }
