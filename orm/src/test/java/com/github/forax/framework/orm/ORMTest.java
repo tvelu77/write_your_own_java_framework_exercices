@@ -910,7 +910,7 @@ public class ORMTest {
     }
   }
 
-  /*@Nested
+  @Nested
   class Q10 {
 
     @Test @Tag("Q10")
@@ -1049,7 +1049,7 @@ public class ORMTest {
   }
 
 
-  @Nested
+  /*@Nested
   public class Q12 {
 
     @Test @Tag("Q12")
