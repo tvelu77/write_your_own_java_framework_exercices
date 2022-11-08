@@ -219,9 +219,9 @@ public final class ORM {
                               BeanInfo beanInfo,
                               Constructor<?> constructor) throws SQLException {
     var list = new ArrayList<>();
-    try(var statement = connection.prepareStatement(query)) {
-      try(var resultSet = statement.executeQuery()) {
-        while(resultSet.next()) {
+    try (var statement = connection.prepareStatement(query)) {
+      try (var resultSet = statement.executeQuery()) {
+        while (resultSet.next()) {
           var instance = toEntityClass(resultSet, beanInfo, constructor);
           list.add(instance);
         }
