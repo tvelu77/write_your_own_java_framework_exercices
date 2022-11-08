@@ -992,7 +992,7 @@ public class ORMTest {
     @Test @Tag("Q11")
     public void testFindId() {
       var beanInfo = Utils.beanInfo(Person.class);
-      var property = ORM.findId(Person.class, beanInfo);
+      var property = ORM.findId(beanInfo);
       assertEquals("id", property.getName());
     }
 
@@ -1031,7 +1031,7 @@ public class ORMTest {
     @Test @Tag("Q11")
     public void testFindNoId() {
       var beanInfo = Utils.beanInfo(NoId.class);
-      assertNull(ORM.findId(NoId.class, beanInfo));
+      assertNull(ORM.findId(beanInfo));
     }
 
     @Test @Tag("Q11")
@@ -1049,7 +1049,7 @@ public class ORMTest {
   }
 
 
-  /*@Nested
+  @Nested
   public class Q12 {
 
     @Test @Tag("Q12")
@@ -1122,7 +1122,7 @@ public class ORMTest {
   }
 
 
-  @Nested
+  /*@Nested
   class Q13 {
 
     @Test @Tag("Q13")

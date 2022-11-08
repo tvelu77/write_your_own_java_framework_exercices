@@ -114,10 +114,20 @@ public final class ORM {
                 throw new IllegalStateException("no connection available");
               }
               try {
+                var query = method.getAnnotation(Query.class);
+                if (query != null) {
+                  return findAll(connection, query.value(), beanInfo, constructor, args);
+                }
                 return switch (name) {
                   case "findAll" -> {
-                    var query = "SELECT * FROM " + tableName;
-                    yield findAll(connection, query, beanInfo, constructor);
+                    var currentQuery = "SELECT * FROM " + tableName + ";";
+                    yield findAll(connection, currentQuery, beanInfo, constructor);
+                  }
+                  case "findById" -> {
+                    var currentQuery = "SELECT * FROM " + tableName
+                            + " WHERE " + idProperty.getName() + ";";
+                    yield findAll(connection, currentQuery, beanInfo, constructor, args[0])
+                            .stream().findFirst();
                   }
                   case "save" -> save(connection, tableName, beanInfo, args[0], idProperty);
                   case "equals", "hashCode", "toString" ->
@@ -213,9 +223,15 @@ public final class ORM {
   static List<?> findAll(Connection connection,
                               String query,
                               BeanInfo beanInfo,
-                              Constructor<?> constructor) throws SQLException {
+                              Constructor<?> constructor,
+                              Object... args) throws SQLException {
     var list = new ArrayList<>();
     try (var statement = connection.prepareStatement(query)) {
+      if (args != null) {
+        for (var i = 0; i < args.length; i++) {
+          statement.setObject(i + 1, args[i]);
+        }
+      }
       try (var resultSet = statement.executeQuery()) {
         while (resultSet.next()) {
           var instance = toEntityClass(resultSet, beanInfo, constructor);

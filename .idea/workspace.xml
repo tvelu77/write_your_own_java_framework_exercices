@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="ex10 is done, however, q8 test needs to be modified">
+    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="uncommented test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -435,7 +436,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667903195785</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="uncommented test">
+      <created>1667903340077</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1667903340077</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -463,7 +471,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="saving work for exercise 7 of injector" />
     <MESSAGE value="update by IntelliJ" />
     <MESSAGE value="Interceptor - ex1 done" />
     <MESSAGE value="Interceptor - ex2 done" />
@@ -488,7 +495,8 @@
     <MESSAGE value="started ex8, created createSaveQuery and uncommented test" />
     <MESSAGE value="ex9 is done" />
     <MESSAGE value="ex10 is done, however, q8 test needs to be modified" />
-    <option name="LAST_COMMIT_MESSAGE" value="ex10 is done, however, q8 test needs to be modified" />
+    <MESSAGE value="uncommented test" />
+    <option name="LAST_COMMIT_MESSAGE" value="uncommented test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
