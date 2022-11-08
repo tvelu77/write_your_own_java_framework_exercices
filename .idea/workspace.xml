@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="started ex8, created createSaveQuery and uncommented test">
+    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="ex9 is done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" afterDir="false" />
@@ -422,7 +422,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667900998943</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="ex9 is done">
+      <created>1667902858685</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1667902858685</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -450,7 +457,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Injector - exercise 5 done" />
     <MESSAGE value="Injector - exercise 6 done" />
     <MESSAGE value="saving work for exercise 7 of injector" />
     <MESSAGE value="update by IntelliJ" />
@@ -475,7 +481,8 @@
     <MESSAGE value="improved return type for findAll" />
     <MESSAGE value="improved return type for createRepository" />
     <MESSAGE value="started ex8, created createSaveQuery and uncommented test" />
-    <option name="LAST_COMMIT_MESSAGE" value="started ex8, created createSaveQuery and uncommented test" />
+    <MESSAGE value="ex9 is done" />
+    <option name="LAST_COMMIT_MESSAGE" value="ex9 is done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
