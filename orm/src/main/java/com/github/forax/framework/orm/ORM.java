@@ -101,7 +101,7 @@ public final class ORM {
     }
   }
 
-  public static <T> T createRepository(Class<T> repositoryType) {
+  public static <R extends Repository<T, ID>, T, ID> R createRepository(Class<R> repositoryType) {
     Objects.requireNonNull(repositoryType);
     var beanType = findBeanTypeFromRepository(repositoryType);
     var beanInfo = Utils.beanInfo(beanType);
@@ -121,7 +121,8 @@ public final class ORM {
                     var query = "SELECT * FROM " + tableName;
                     yield findAll(connection, query, beanInfo, constructor);
                   }
-                  case "equals", "hashCode", "toString" -> throw new UnsupportedOperationException("not supported " + method);
+                  case "equals", "hashCode", "toString" ->
+                          throw new UnsupportedOperationException("not supported " + method);
                   default -> throw new IllegalStateException("unknown method " + method);
                 };
               } catch (SQLException e) {
