@@ -4,6 +4,7 @@ import org.h2.command.Prepared;
 
 import javax.sql.DataSource;
 import java.beans.BeanInfo;
+import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.Serial;
 import java.lang.reflect.Constructor;
@@ -132,7 +133,19 @@ public final class ORM {
                   case "save" -> save(connection, tableName, beanInfo, args[0], idProperty);
                   case "equals", "hashCode", "toString" ->
                           throw new UnsupportedOperationException("not supported " + method);
-                  default -> throw new IllegalStateException("unknown method " + method);
+                  default -> {
+                    if (name.startsWith("findBy")) {
+                      var propertyName = name.substring("findBy".length());
+                      var propertyCorrectName = Introspector.decapitalize(propertyName);
+                      var property = findProperty(beanInfo, propertyCorrectName);
+                      yield findAll(connection, """
+                              SELECT * FROM %s WHERE %s = ?;\
+                              """.formatted(tableName, findColumnName(property)),
+                              beanInfo,
+                              constructor, args[0]).stream().findFirst();
+                    }
+                    throw new IllegalStateException("unknown method " + method);
+                  }
                 };
               } catch (SQLException e) {
                 throw new UncheckedSQLException(e);
