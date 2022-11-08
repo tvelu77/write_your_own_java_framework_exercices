@@ -2,7 +2,6 @@ package com.github.forax.framework.orm;
 
 import javax.sql.DataSource;
 import java.beans.BeanInfo;
-import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.Serial;
 import java.lang.reflect.Constructor;
@@ -11,7 +10,6 @@ import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,8 +17,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class ORM {
@@ -76,7 +72,7 @@ public final class ORM {
 
   // --- do not change the code above
 
-  //TODO
+  // TODO
 
   private static final ThreadLocal<Connection> CONNECTION_THREAD_LOCAL = new ThreadLocal<>();
 
@@ -120,7 +116,7 @@ public final class ORM {
                 throw new IllegalStateException("no connection available");
               }
               try {
-                return switch (method.getName()) {
+                return switch (name) {
                   case "findAll" -> {
                     var query = "SELECT * FROM " + tableName;
                     yield findAll(connection, query, beanInfo, constructor);
