@@ -276,7 +276,7 @@ public final class ORM {
             Collections.nCopies(properties.length - 1, "?"));
 
     var query = """
-            INSERT INTO %s (%s) VALUES (%s);\
+            MERGE INTO %s (%s) VALUES (%s);\
             """.formatted(
                     tableName,
                     columnNames,
