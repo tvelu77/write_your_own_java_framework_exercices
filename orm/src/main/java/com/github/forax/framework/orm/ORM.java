@@ -125,7 +125,7 @@ public final class ORM {
                   }
                   case "findById" -> {
                     var currentQuery = "SELECT * FROM " + tableName
-                            + " WHERE " + idProperty.getName() + ";";
+                            + " WHERE " + idProperty.getName() + " = ?;";
                     yield findAll(connection, currentQuery, beanInfo, constructor, args[0])
                             .stream().findFirst();
                   }
