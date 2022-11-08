@@ -121,6 +121,7 @@ public final class ORM {
                     var query = "SELECT * FROM " + tableName;
                     yield findAll(connection, query, beanInfo, constructor);
                   }
+                  case "save" -> save(connection, tableName, beanInfo, args[0], null);
                   case "equals", "hashCode", "toString" ->
                           throw new UnsupportedOperationException("not supported " + method);
                   default -> throw new IllegalStateException("unknown method " + method);
@@ -227,14 +228,35 @@ public final class ORM {
     return list;
   }
 
-  private static String createSaveQuery(String tableName,
+  static Object save(Connection connection,
+                     String tableName,
+                     BeanInfo beanInfo,
+                     Object bean,
+                     String idProperty) throws SQLException {
+    var query = createSaveQuery(tableName, beanInfo);
+    try (var statement = connection.prepareStatement(query)) {
+      var index = 1;
+      for (var property : beanInfo.getPropertyDescriptors()) {
+        if (property.getName().equals("class")) {
+          continue;
+        }
+        var getter = property.getReadMethod();
+        var value = Utils.invokeMethod(bean, getter);
+        statement.setObject(index++, value);
+      }
+      statement.executeUpdate();
+    }
+    return bean;
+  }
+
+  static String createSaveQuery(String tableName,
                                                    BeanInfo beanInfo) {
     var properties = beanInfo.getPropertyDescriptors();
     var columnNames = Arrays.stream(properties)
             .map(PropertyDescriptor::getName)
             .filter(not("class"::equals))
             .collect(Collectors.joining(", "));
-    var jokers = String.join(",",
+    var jokers = String.join(", ",
             Collections.nCopies(properties.length - 1, "?"));
 
     var query = """
