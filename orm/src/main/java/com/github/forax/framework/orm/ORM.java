@@ -1,27 +1,23 @@
 package com.github.forax.framework.orm;
 
+import org.h2.command.Prepared;
+
 import javax.sql.DataSource;
 import java.beans.BeanInfo;
-import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.Serial;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.StringJoiner;
-import java.util.function.Function;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.function.Predicate.not;
 
 public final class ORM {
   private ORM() {
@@ -76,7 +72,7 @@ public final class ORM {
 
   // --- do not change the code above
 
-  //TODO
+  // TODO
 
   private static final ThreadLocal<Connection> CONNECTION_THREAD_LOCAL = new ThreadLocal<>();
 
@@ -105,7 +101,7 @@ public final class ORM {
     }
   }
 
-  public static <T> T createRepository(Class<T> repositoryType) {
+  public static <R extends Repository<T, ID>, T, ID> R createRepository(Class<R> repositoryType) {
     Objects.requireNonNull(repositoryType);
     var beanType = findBeanTypeFromRepository(repositoryType);
     var beanInfo = Utils.beanInfo(beanType);
@@ -120,12 +116,14 @@ public final class ORM {
                 throw new IllegalStateException("no connection available");
               }
               try {
-                return switch (method.getName()) {
+                return switch (name) {
                   case "findAll" -> {
                     var query = "SELECT * FROM " + tableName;
                     yield findAll(connection, query, beanInfo, constructor);
                   }
-                  case "equals", "hashCode", "toString" -> throw new UnsupportedOperationException("not supported " + method);
+                  case "save" -> save(connection, tableName, beanInfo, args[0], null);
+                  case "equals", "hashCode", "toString" ->
+                          throw new UnsupportedOperationException("not supported " + method);
                   default -> throw new IllegalStateException("unknown method " + method);
                 };
               } catch (SQLException e) {
@@ -214,20 +212,61 @@ public final class ORM {
     return instance;
   }
 
-  static List<Object> findAll(Connection connection,
+  static List<?> findAll(Connection connection,
                               String query,
                               BeanInfo beanInfo,
                               Constructor<?> constructor) throws SQLException {
     var list = new ArrayList<>();
-    try(var statement = connection.prepareStatement(query)) {
-      try(var resultSet = statement.executeQuery()) {
-        while(resultSet.next()) {
+    try (var statement = connection.prepareStatement(query)) {
+      try (var resultSet = statement.executeQuery()) {
+        while (resultSet.next()) {
           var instance = toEntityClass(resultSet, beanInfo, constructor);
           list.add(instance);
         }
       }
     }
     return list;
+  }
+
+  static Object save(Connection connection,
+                     String tableName,
+                     BeanInfo beanInfo,
+                     Object bean,
+                     String idProperty) throws SQLException {
+    var query = createSaveQuery(tableName, beanInfo);
+    try (var statement = connection.prepareStatement(query)) {
+      var index = 1;
+      for (var property : beanInfo.getPropertyDescriptors()) {
+        if (property.getName().equals("class")) {
+          continue;
+        }
+        var getter = property.getReadMethod();
+        var value = Utils.invokeMethod(bean, getter);
+        statement.setObject(index++, value);
+      }
+      statement.executeUpdate();
+    }
+    return bean;
+  }
+
+  static String createSaveQuery(String tableName,
+                                                   BeanInfo beanInfo) {
+    var properties = beanInfo.getPropertyDescriptors();
+    var columnNames = Arrays.stream(properties)
+            .map(PropertyDescriptor::getName)
+            .filter(not("class"::equals))
+            .collect(Collectors.joining(", "));
+    var jokers = String.join(", ",
+            Collections.nCopies(properties.length - 1, "?"));
+
+    var query = """
+            INSERT INTO %s (%s) VALUES (%s);\
+            """.formatted(
+                    tableName,
+                    columnNames,
+                    jokers
+                );
+    return query;
   }
 
   private static boolean isId(PropertyDescriptor property) {

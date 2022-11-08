@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="ORM - ex6 is done">
+    <list default="true" id="74bd28e4-ede9-4bbb-a92f-dae249a45c06" name="Changes" comment="started ex8, created createSaveQuery and uncommented test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm/ORM.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java" afterDir="false" />
@@ -15,6 +15,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
@@ -382,7 +387,42 @@
       <option name="project" value="LOCAL" />
       <updated>1667653339674</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="fixed typo">
+      <created>1667894857980</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1667894857981</updated>
+    </task>
+    <task id="LOCAL-00033" summary="fixed some warnings">
+      <created>1667895925965</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1667895925965</updated>
+    </task>
+    <task id="LOCAL-00034" summary="improved return type for findAll">
+      <created>1667896060220</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1667896060220</updated>
+    </task>
+    <task id="LOCAL-00035" summary="improved return type for createRepository">
+      <created>1667896558822</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1667896558822</updated>
+    </task>
+    <task id="LOCAL-00036" summary="started ex8, created createSaveQuery and uncommented test">
+      <created>1667900998943</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1667900998943</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -410,11 +450,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="update by IntelliJ (Injector - exercise 1/2 upgraded variable checking)" />
-    <MESSAGE value="Injector - exercise 3 done" />
-    <MESSAGE value="Injector - exercise 4 done" />
-    <MESSAGE value="Injector - exercise 4 fixed method visibility" />
-    <MESSAGE value="Injector - exercise 4 optimisation" />
     <MESSAGE value="Injector - exercise 5 done" />
     <MESSAGE value="Injector - exercise 6 done" />
     <MESSAGE value="saving work for exercise 7 of injector" />
@@ -435,6 +470,22 @@
     <MESSAGE value="ORM - ex4 is done" />
     <MESSAGE value="ORM - ex5 is done" />
     <MESSAGE value="ORM - ex6 is done" />
-    <option name="LAST_COMMIT_MESSAGE" value="ORM - ex6 is done" />
+    <MESSAGE value="fixed typo" />
+    <MESSAGE value="fixed some warnings" />
+    <MESSAGE value="improved return type for findAll" />
+    <MESSAGE value="improved return type for createRepository" />
+    <MESSAGE value="started ex8, created createSaveQuery and uncommented test" />
+    <option name="LAST_COMMIT_MESSAGE" value="started ex8, created createSaveQuery and uncommented test" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/interceptor/src/main/java/org/github/forax/framework/interceptor/InterceptorRegistry.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
