@@ -1,5 +1,7 @@
 package com.github.forax.framework.orm;
 
+import org.h2.command.Prepared;
+
 import javax.sql.DataSource;
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
@@ -8,16 +10,14 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.function.Predicate.not;
 
 public final class ORM {
   private ORM() {
@@ -225,6 +225,26 @@ public final class ORM {
       }
     }
     return list;
+  }
+
+  private static String createSaveQuery(String tableName,
+                                                   BeanInfo beanInfo) {
+    var properties = beanInfo.getPropertyDescriptors();
+    var columnNames = Arrays.stream(properties)
+            .map(PropertyDescriptor::getName)
+            .filter(not("class"::equals))
+            .collect(Collectors.joining(", "));
+    var jokers = String.join(",",
+            Collections.nCopies(properties.length - 1, "?"));
+
+    var query = """
+            INSERT INTO %s (%s) VALUES (%s);\
+            """.formatted(
+                    tableName,
+                    columnNames,
+                    jokers
+                );
+    return query;
   }
 
   private static boolean isId(PropertyDescriptor property) {
